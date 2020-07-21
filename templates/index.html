@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Todo App</title>
+</head>
+<body style="background-color: aquamarine;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">TODO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+
+            <div class="col-6">
+                <div style="text-align: left;">
+                    <div class="h1">
+                        <p>Todo list</p>
+                    </div>
+                      
+                    <form method="POST">
+                        <input type="text"  placeholder="Ajouter une nouvelle tache" name="task" size="50">
+                        <input type="submit" id="" value="Ajouter">
+                    </form>
+                        <div>
+                            <div class="h2">
+                                <p>Incompleted</p>  
+                            </div> 
+                            <div style="text-align: left;">
+                                <ul>
+                                    {% for todo in todos %}
+                                    {% if not todo.complete %} 
+                                    <li><button class="btn btn-success"><a href="{{url_for('complete',todo.id)}}" style="cursor: pointer; text-decoration: none; color: currentColor;">Done</a></button>{{ todo.text}}</li>
+                                    {% endif %}               
+                                    {% endfor %}
+                                </ul>   
+                            </div>                          
+                        </div>
+                
+                    <div style="text-align: left;">
+                        <div class="h2">
+                            <p>Done</p>
+                        </div>
+                        {% for todo in todos %}
+                        {% if todo.complete %}
+                        <ul>
+                            <li>{{ todo.text}}<button class="btn btn-danger "><a href="/delete/{{todo.id}}" style="color: black; text-decoration: none;">Delete</a></button></li>  
+                        </ul> 
+                        {% endif %}               
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+</body>
+</html>
